@@ -4,18 +4,20 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
-    environment:
-      - DATABASE_URL=postgres://user:password@db:5432/mydb?sslmode=disable
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    env_file:
+      - .env
     depends_on:
       - db
 
   db:
     image: postgres:latest
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
