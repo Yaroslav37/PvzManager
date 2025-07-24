@@ -23,6 +23,7 @@ func main() {
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),
 	)
+
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)
